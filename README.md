@@ -17,7 +17,7 @@ Visit https://ukrn.github.io/ORP-Survey-2027-Sampling-Tool/ to run the tool.
 └── docs/               # Generated Shinylive export </code></pre>
 
 ## Cite this tool
-Ofili, S. (2026) ORP Survey 2027 Sampling Tool [Computer software]. Retrieved from: https://github.com/samofili/ORP-Survey-2027-Sampling-Tool/
+Ofili, S. (2026) ORP Survey 2027 Sampling Tool [Computer software]. Retrieved from: https://github.com/UKRN/ORP-Survey-2027-Sampling-Tool
 
 ## Acknowledgements 
 This tool is based on the UKRN Evaluation Survey HESA Processing Sheet developed by Vidovic (2025).
