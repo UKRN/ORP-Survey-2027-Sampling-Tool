@@ -13,8 +13,8 @@ Visit XXXXXX to run the tool.
  <pre><code>
 ├── README.md           # Project documentation            
 ├── app/                # Shiny application
-|   └──data/             # HESA (Higher Education Statistics Agency) look-up files used by tool
-└── docs/                # Generated Shinylive export </code></pre>
+|└──data/               # HESA (Higher Education Statistics Agency) look-up files used by tool
+└── docs/               # Generated Shinylive export </code></pre>
 
 ## Cite this tool
 Ofili, S. (2026) ORP Survey 2027 Sampling Tool [Computer software]. Retrieved from: https://github.com/samofili/ORP-Survey-2027-Sampling-Tool/
