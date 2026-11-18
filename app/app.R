@@ -113,9 +113,9 @@ ui <- dashboardPage(
           "(📧 samantha.ofili@bristol.ac.uk)"
               )
         ),
-        tags$b("Step 1"),
+        tags$b("Step 1: UPLOAD CSV FILES"),
         p(
-          "Upload csv files containing HESA returns for all staff and PGR at your institution. The files must contain:"),
+          "Upload csv files containing HESA returns for all staff and PGR at your institution. The files must contain the following information:"),
         tags$ul(
           tags$li("Name"),
           tags$li("HeCOS code for a member's primary current academic discipline or a PGR's qualification (e.g. 100003)"),
@@ -124,13 +124,17 @@ ui <- dashboardPage(
           tags$li("Whether the staff member has Significant Responsibility for Research (SR4R) or not (coded 1/2 or 'Yes'/'No')"),
           tags$li("Whether the staff member is a research assistant or not (coded 0/1 or 'Not a research assistant'/'Research assistant')")
         ),
-        tags$b("Step 2"),
+        tags$b("Step 2: SPECIFY COLUMNS"),
         p(
-          "Use the sidebar slider to choose the percentage of the population you want to sample, then click 'Generate Random Sample'. We recommend a random sample of at least 50."
+          "Specify which columns in your dataset match the corresponding headings"
         ),
-        tags$b("Step 3"),
+        tags$b("Step 3: CHOOSE THE SIZE OF YOUR RANDOM SAMPLE"),
         p(
-          "Download the generated random sample file directly from 'RESULTS: Random Sample' to encrypted or secure folders compliant with your institution’s data protection policies. Email the sample list directly to invite them to complete the survey."
+          "Use the sidebar slider to choose the percentage of the population you want to invite to take part in the survey. Please plan for approximately 10% of all invited researchers taking part in the survey. For example, for 50 survey responses, please contact 500 reseachers."
+        ),
+        tags$b("Step 4: GET A RANDOM SAMPLE"),
+        p(
+          "Click 'Generate Random Sample' and download the generated random sample file directly from 'RESULTS: Random Sample' to encrypted or secure folders compliant with your institution’s data protection policies. Email the sample list directly to invite them to complete the survey."
         ),
         tags$b("DATA PROTECTION NOTICE:"),
         p(
