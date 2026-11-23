@@ -1,0 +1,26 @@
+{
+    "id": "32670585",
+    "path": "~/GitHub/ORP-Survey-2027-Sampling-Tool/app/app.R",
+    "project_path": "app/app.R",
+    "type": "r_source",
+    "hash": "3338144702",
+    "contents": "",
+    "dirty": false,
+    "created": 1795451683703.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "134,88",
+        "scrollLine": "122"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1795455977,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1795455977573,
+    "read_only": false,
+    "read_only_alternatives": []
+}

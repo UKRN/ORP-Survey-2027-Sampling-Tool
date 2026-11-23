@@ -20,13 +20,14 @@ library(httpuv)
 hecos_2_coh <- read_csv(
   "data/hecos_2_coh.csv",
   show_col_types = FALSE
-)
+) |>
+  mutate(HECoS_Code = as.character(HECoS_Code))
 
 disciplines <- read_csv(
   "data/academic_disciplines.csv",
   show_col_types = FALSE
 ) |>
-  clean_names()
+  clean_names() %>% mutate(code=as.character(code))
 
 # =====================================================
 # USER INTERFACE
@@ -110,8 +111,13 @@ ui <- dashboardPage(
           "This tool has been created for the UKRN Open Research Programme Survey 2027. It allows UK institutions to generate a representative subset of their research community for the purpose of running surveys. If you have any questions about the use of this tool, please contact Samantha Ofili" ,
         tags$a(
           href = "mailto:samantha.ofili@bristol.ac.uk?subject=ORP%20Survey%20Sampling%20Tool",
-          "(📧 samantha.ofili@bristol.ac.uk)"
-              )
+          "(📧 samantha.ofili@bristol.ac.uk)."
+              )),
+        p(
+        tags$a(
+          href = "https://github.com/UKRN/ORP-Survey-2027-Sampling-Tool",
+          "Further information on the tool can also be found on the UKRN Github."
+        )
         ),
         tags$b("Step 1: UPLOAD CSV FILES"),
         p(
@@ -126,17 +132,21 @@ ui <- dashboardPage(
         ),
         tags$b("Step 2: SPECIFY COLUMNS"),
         p(
-          "Specify which columns in your dataset match the corresponding headings"
+          "Specify which columns in your dataset match the information listed in Step 1."
         ),
-        tags$b("Step 3: CHOOSE THE SIZE OF YOUR RANDOM SAMPLE"),
+        tags$b("Step 3: GET A RANDOM SAMPLE"),
         p(
-          "Use the sidebar slider to choose the percentage of the population you want to invite to take part in the survey. Please plan for approximately 10% of all invited researchers taking part in the survey. For example, for 50 survey responses, please contact 500 reseachers."
+          "Click 'Generate Random Sample'."
         ),
-        tags$b("Step 4: GET A RANDOM SAMPLE"),
+        tags$b("Step 4: ADJUST THE SIZE OF YOUR RANDOM SAMPLE"),
         p(
-          "Click 'Generate Random Sample' and download the generated random sample file directly from 'RESULTS: Random Sample' to encrypted or secure folders compliant with your institution’s data protection policies. Email the sample list directly to invite them to complete the survey."
+          "Use the sidebar slider to choose the percentage of the population you want to invite to take part in the survey. Please aim for the estimated number of survey responses to be least 50."
+          ),
+       tags$b("Step 5: DOWNLOAD YOUR RANDOM SAMPLE"),
+        p(
+          "Download the generated random sample file directly from 'RESULTS: Random Sample' to encrypted or secure folders compliant with your institution’s data protection policies. Email the sample list directly to invite them to complete the survey."
         ),
-        tags$b("DATA PROTECTION NOTICE:"),
+        tags$b("DATA PROTECTION NOTICE"),
         p(
           "This tool has been designed to run within your local R session memory or hosted statically via GitHub Pages using your web browser's local sandbox memory. The tool does not transmit, upload, or store any data from your uploaded CSV files, or generated sample lists to any external servers, cloud storage, GitHub or third-party databases. Closing or refreshing the tool immediately terminates the session and clears all loaded datasets and sample lists from your R session or browser memory."
         )
@@ -146,8 +156,8 @@ ui <- dashboardPage(
     fluidRow(
       
       valueBoxOutput("population_box"),
-      valueBoxOutput("sample_box")
-      
+      valueBoxOutput("sample_box"),
+      valueBoxOutput("expected_responses_box")
     ),
     
     tabBox(
@@ -373,8 +383,7 @@ server <- function(input, output, session) {
           
           name = name,
 
-          hecos =
-            .data[[input$hecos_col]],
+          hecos = as.character(.data[[input$hecos_col]]),
           
           contract_end =
             .data[[input$contract_end_col]],
@@ -437,20 +446,20 @@ server <- function(input, output, session) {
           name,
           .keep_all = TRUE
         ) |>
+
+          left_join(
+          hecos_2_coh,
+          by = c(
+            "hecos" = "HECoS_Code"
+          )
+        ) |>
         
         left_join(
           disciplines,
           by = c(
             "hecos" = "code"
           )
-        ) |>
-        
-        left_join(
-          hecos_2_coh,
-          by = c(
-            "hecos" = "HECoS_Code"
-          )
-        ) |>
+        )  |>
         
         mutate(
           
@@ -509,8 +518,7 @@ server <- function(input, output, session) {
           )
         },
         
-        hecos =
-          .data[[input$pgr_hecos_col]],
+        hecos = as.character(.data[[input$pgr_hecos_col]]),
         
         course_end =
           .data[[input$pgr_end_col]]
@@ -725,6 +733,22 @@ server <- function(input, output, session) {
       "Random Sample",
       icon = icon("users-viewfinder"),
       color = "purple"
+    )
+    
+  })
+  
+  output$expected_responses_box <- renderValueBox({
+    
+    n <- nrow(sampled_data())
+    
+    min_resp <- round(n * 0.10)
+    max_resp <- round(n * 0.15)
+    
+    valueBox(
+      paste0(min_resp, " - ", max_resp),
+      "Estimated number of survey responses",
+      icon = icon("comments"),
+      color = "green"
     )
     
   })
