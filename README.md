@@ -6,7 +6,7 @@ This tool has been created for the UKRN Open Research Programme Survey 2027. It 
 ## Running via Shinylive
 This tool is configured to run entirely in the browser using Shinylive (Schloerke et al., 2026).
 
-Visit https://ukrn.github.io/ORP-Survey-2027-Sampling-Tool/ to run the tool. 
+You can visit https://ukrn.github.io/ORP-Survey-2027-Sampling-Tool/ to run the tool. 
 
 ## Project Structure
 
